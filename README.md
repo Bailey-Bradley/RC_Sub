@@ -13,4 +13,4 @@ This contains all the code and resources for the RC Submarine (name pending). It
 
 ## Resources
 
-(Notion page)[https://app.notion.com/p/Underwater-ROV-369be72405e08033bea5c643716d5b18]
+[Notion page](https://app.notion.com/p/Underwater-ROV-369be72405e08033bea5c643716d5b18)
