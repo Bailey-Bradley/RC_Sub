@@ -13,12 +13,11 @@ private:
 public:
     TimedClass() {
         m_timer.setInterval(500);
-        connect(&m_timer, &QTimer::timeout, this, &TimedClass::trigger);
         m_timer.start();
     }
 
-    void trigger() {
-        qDebug("Caleld!");
+    void setFunc(std::function<void()> func) {
+        connect(&m_timer, &QTimer::timeout, this, func);
     }
 };
 
@@ -38,6 +37,15 @@ int main(int argc, char *argv[])
     engine.loadFromModule("rov_gui", "Main");
 
     TimedClass tc;
+
+    QObject *widget = engine.rootObjects().first()->findChild<QObject*>("temp_widget");
+
+    if (widget != nullptr) {
+        qDebug("Found it!");
+        tc.setFunc([&widget]() { widget->setProperty("temp", float(rand() % 100)); });
+    } else {
+        qDebug("Me no find");
+    }
 
     return QGuiApplication::exec();
 }

@@ -21,6 +21,7 @@ qt_add_qml_module(approv_gui
     URI rov_gui
     QML_FILES
         Main.qml
+        QML_FILES TemperatureWidget.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
