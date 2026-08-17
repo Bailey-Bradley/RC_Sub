@@ -31,9 +31,6 @@ void loop() {
   Serial.print(depth);
   Serial.print(" m, ");
   Serial.print(depth * 3.28084); // Convert depth to feet
-  Serial.print(" ft, Altitude: ");
-  Serial.print(altitude);
-  Serial.println(" m");
 
   delay(1000); // Wait for a second before the next reading
 }
