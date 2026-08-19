@@ -7,7 +7,6 @@ byte mac[] = {
 };
 
 IPAddress control_server_ip(192,168,10,50);
-IPAddress computer_ip(192,168,10,117);
 
 EthernetUDP udp;
 
@@ -19,4 +18,20 @@ void ethernetSetup()
   Ethernet.begin(mac, control_server_ip);
   
   udp.begin(CONTROL_SERVER_PORT);
+}
+
+std::string getUDPMessage(EthernetUDP udp) {
+  std::string packet;
+
+  char packet_buffer[UDP_TX_PACKET_MAX_SIZE+1];
+
+  if (udp.parsePacket()) {
+    while (udp.available()) {
+      int num_read = udp.read(packet_buffer, UDP_TX_PACKET_MAX_SIZE);
+      packet_buffer[num_read] = '\0';
+      packet.append(packet_buffer);
+    }
+  }
+
+  return packet;
 }

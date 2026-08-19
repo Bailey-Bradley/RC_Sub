@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Ethernet.h>
-#include "EthernetUtils.h"
 
 #define SPI_SCK_PIN 18
 #define SPI_MISO_PIN 19
@@ -13,8 +12,8 @@
 extern byte mac[];
 
 extern IPAddress control_server_ip;
-extern IPAddress computer_ip;
 
 extern EthernetUDP udp;
 
 void ethernetSetup();
+std::string getUDPMessage(EthernetUDP udp);
