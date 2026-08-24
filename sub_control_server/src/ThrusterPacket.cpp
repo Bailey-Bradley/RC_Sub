@@ -1,5 +1,5 @@
 #include "ThrusterPacket.h"
-#include "CommandProcessing.h"
+#include "CommandParsing.h"
 
 ThrusterPacket::ThrusterPacket(const std::string& command_str) {
     std::vector<std::string> args = split(command_str);
