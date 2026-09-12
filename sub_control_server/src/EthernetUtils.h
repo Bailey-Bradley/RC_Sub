@@ -14,6 +14,8 @@ extern byte mac[];
 extern IPAddress control_server_ip;
 
 extern EthernetUDP udp;
+extern EthernetServer tcp;
 
 void ethernetSetup();
 std::string getUDPMessage(EthernetUDP udp);
+std::string getTCPMessage(EthernetServer tcp);
