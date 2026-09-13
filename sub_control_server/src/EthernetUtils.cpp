@@ -36,8 +36,8 @@ std::string getTCPMessage(EthernetServer tcp) {
 
   EthernetClient client = tcp.available();
 
-  if (tcp.) {
-    packet = tcp.readString().c_str();
+  if (client.available()) {
+    packet = client.readString().c_str();
   }
 
   return packet;
