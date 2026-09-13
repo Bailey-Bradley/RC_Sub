@@ -2,10 +2,10 @@
 
 #include <Ethernet.h>
 
-#define SPI_SCK_PIN 18
-#define SPI_MISO_PIN 19
-#define SPI_MOSI_PIN 47
-#define SPI_CS_PIN 5
+#define SPI_SCK_PIN 33
+#define SPI_MISO_PIN 26
+#define SPI_MOSI_PIN 25
+#define SPI_CS_PIN 32
 
 #define CONTROL_SERVER_PORT 50001
 
