@@ -22,6 +22,11 @@ qt_add_qml_module(approv_gui
     QML_FILES
         Main.qml
         QML_FILES TemperatureWidget.qml
+        SOURCES Connection.h Connection.cpp
+        SOURCES Networking.h Networking.cpp
+        SOURCES  FuncTimer.cpp
+        SOURCES FuncTimer.h
+        SOURCES TemperatureWidget.h TemperatureWidget.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
