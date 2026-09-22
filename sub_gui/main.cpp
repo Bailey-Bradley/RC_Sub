@@ -1,48 +1,42 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QTimer>
-#include <random>
 
-class TimedClass : public QObject {
-    Q_OBJECT
+#include "Networking.h"
+#include "Connection.h"
+#include "FuncTimer.h"
 
-private:
+#define DATA_RATE 100
 
-    QTimer m_timer;
+QQmlApplicationEngine *startQMLEngine(const QGuiApplication *app) {
 
-public:
-    TimedClass() {
-        m_timer.setInterval(500);
-        m_timer.start();
-    }
+    QQmlApplicationEngine *engine = new QQmlApplicationEngine();
+    QObject::connect(
+        engine,
+        &QQmlApplicationEngine::objectCreationFailed,
+        app,
+        []() { QCoreApplication::exit(-1); },
+        Qt::QueuedConnection);
+    engine->loadFromModule("rov_gui", "Main");
 
-    void setFunc(std::function<void()> func) {
-        connect(&m_timer, &QTimer::timeout, this, func);
-    }
-};
-
-#include "main.moc"
+    return engine;
+}
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QQmlApplicationEngine *engine = startQMLEngine(&app);
+    Networking::init();
+    FuncTimer data_timer(DATA_RATE);
 
-    QQmlApplicationEngine engine;
-    QObject::connect(
-        &engine,
-        &QQmlApplicationEngine::objectCreationFailed,
-        &app,
-        []() { QCoreApplication::exit(-1); },
-        Qt::QueuedConnection);
-    engine.loadFromModule("rov_gui", "Main");
+    Connection conn = Connection(ROV_SERVER_IP, ROV_SERVER_CONTROL_PORT);
+    const char* packet = "Test Data";
+    conn.send_data(packet, strlen(packet));
 
-    TimedClass tc;
-
-    QObject *widget = engine.rootObjects().first()->findChild<QObject*>("temp_widget");
+    QObject *widget = engine->rootObjects().first()->findChild<QObject*>("temp_widget");
 
     if (widget != nullptr) {
         qDebug("Found it!");
-        tc.setFunc([&widget]() { widget->setProperty("temp", float(rand() % 100)); });
+        data_timer.setFunc([&widget]() { widget->setProperty("temp", float(rand() % 100)); });
     } else {
         qDebug("Me no find");
     }
