@@ -32,5 +32,6 @@ ApplicationWindow {
         objectName: "temp_widget"
         height: 90
         width: 30
+        sensor: TempSensor
     }
 }
