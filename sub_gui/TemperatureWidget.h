@@ -1,12 +1,18 @@
 #pragma once
 
-class TemperatureWidget
+#include <QObject>
+
+class TemperatureWidget : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(float temp MEMBER temp NOTIFY tempChanged)
 
     float temp;
 
+signals:
+    void tempChanged();
+
 public:
     TemperatureWidget();
-
-    float getTemperature();
+    void setTemperature(float value);
 };
